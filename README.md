@@ -31,17 +31,21 @@ The pre-trained networks you'll use were trained on the ImageNet dataset where e
 
 
 Label mapping
+
 You'll also need to load in a mapping from category label to category name. You can find this in the file cat_to_name.json. It's a JSON object which you can read in with the json module. This will give you a dictionary mapping the integer encoded categories to the actual names of the flowers.
 
 
 
 
 Building and training the classifier
+
 Now that the data is ready, it's time to build and train the classifier. As usual, you should use one of the pretrained models from torchvision.models to get the image features. Build and train a new feed-forward classifier using those features.
 
 We're going to leave this part up to you. Refer to the rubric for guidance on successfully completing this section. Things you'll need to do:
 
-Load a pre-trained network (If you need a starting point, the VGG networks work great and are straightforward to use)
+Load a pre-trained network 
+
+(If you need a starting point, the VGG networks work great and are straightforward to use)
 Define a new, untrained feed-forward network as a classifier, using ReLU activations and dropout
 Train the classifier layers using backpropagation using the pre-trained network to get the features
 Track the loss and accuracy on the validation set to determine the best hyperparameters
@@ -64,6 +68,7 @@ It's good practice to test your trained network on test data, images the network
 
 
 Save the checkpoint
+
 Now that your network is trained, save the model so you can load it later for making predictions. You probably want to save other things such as the mapping of classes to indices which you get from one of the image datasets: image_datasets['train'].class_to_idx. You can attach this to the model as an attribute which makes inference easier later on.
 
 model.class_to_idx = image_datasets['train'].class_to_idx
@@ -81,6 +86,7 @@ At this point it's good to write a function that can load a checkpoint and rebui
 
 
 Inference for classification
+
 Now you'll write a function to use a trained network for inference. That is, you'll pass an image into the network and predict the class of the flower in the image. Write a function called predict that takes an image and a model, then returns the top $K$ most likely classes along with the probabilities. It should look like
 
 probs, classes = predict(image_path, model)
@@ -94,6 +100,7 @@ First you'll need to handle processing the input image such that it can be used 
 
 
 Image Preprocessing
+
 You'll want to use PIL to load the image (documentation). It's best to write a function that preprocesses the image so it can be used as input for the model. This function should process the images in the same manner used for training.
 
 First, resize the images where the shortest side is 256 pixels, keeping the aspect ratio. This can be done with the thumbnail or resize methods. Then you'll need to crop out the center 224x224 portion of the image.
